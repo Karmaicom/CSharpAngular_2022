@@ -10,5 +10,7 @@ namespace AgendaWeb.Infra.Data.Repositories
     public interface ITarefaRepository : IBaseRepository<Tarefa>
     {
 
+        List<Tarefa> FindByDate(DateTime dataMin, DateTime dataMax);
+
     }
 }
