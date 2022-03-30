@@ -6,18 +6,19 @@ using System.Threading.Tasks;
 
 namespace AgendaWeb.Infra.Data.Repositories
 {
-    public interface IBaseRepository<TEntity, TKey>
+    public interface IBaseRepository<TEntity>
+        where TEntity : class
     {
 
         void Create(TEntity obj);
 
         void Update(TEntity obj);
 
-        void Delete(TKey key);
+        void Delete(TEntity obj);
 
         List<TEntity> FindAll();
 
-        TEntity FindById(TKey key);
+        TEntity FindById(Guid id);
 
     }
 }
