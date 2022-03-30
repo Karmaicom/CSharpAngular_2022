@@ -18,7 +18,7 @@ namespace AgendaWeb.Infra.Data.Repositories
 
         List<TEntity> FindAll();
 
-        TEntity FindById(Guid id);
+        TEntity? FindById(Guid id);
 
     }
 }
