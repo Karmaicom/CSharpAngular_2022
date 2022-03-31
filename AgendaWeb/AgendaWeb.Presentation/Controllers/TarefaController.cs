@@ -20,5 +20,11 @@ namespace AgendaWeb.Presentation.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public IActionResult Consulta(TarefaConsultaModel model)
+        {
+            return View();
+        }
     }
 }

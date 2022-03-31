@@ -3,9 +3,42 @@
     Layout = "~/Views/Shared/Layout.cshtml";
 }
 
+@* Defirnindo o model que será usado nesta tela de Consulta *@
+@model AgendaWeb.Presentation.Models.TarefaConsultaModel
+
 <div>
     <h5>Consulta de Tarefas</h5>
     <p>Informe o período de datas para pesquisa de tarefas na agenda</p>
     <hr/>
-</div>
+
+    @* Definindo o formulário *@
+    @using (Html.BeginForm())
+    {
+        <div class="row mb-3">
+            <div class="col-md-3">
+                <label>Data de início:</label>
+                @Html.TextBoxFor(model => model.DataMin, new { @class = "form-control", @type = "date"})
+
+                <div class="text-danger">
+                    @Html.ValidationMessageFor(model => model.DataMin)
+                </div>
+            </div>
+            <div class="col-md-3">
+                <label>Data de término:</label>
+                @Html.TextBoxFor(model => model.DataMax, new { @class = "form-control", @type = "date"})
+
+                <div class="text-danger">
+                    @Html.ValidationMessageFor(model => model.DataMax)
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-12">
+                <input type="submit" class="btn btn-success" value="Pesquisar Tarefas">
+            </div>
+        </div>
+
+    }
+
+</>
 
