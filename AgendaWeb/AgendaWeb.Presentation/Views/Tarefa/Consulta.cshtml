@@ -34,11 +34,57 @@
         </div>
         <div class="row mb-3">
             <div class="col-md-12">
-                <input type="submit" class="btn btn-success" value="Pesquisar Tarefas">
+                <input type="submit" formmethod="post" class="btn btn-success" value="Pesquisar Tarefas">
             </div>
         </div>
-
     }
 
-</>
+    <!-- Mostrar lista de tarefas retornadas na consulta -->
+    @if (Model != null && Model.Tarefas != null)
+    {
+        <table class="table table-sm table-hover">
+            <thead>
+                <tr>
+                    <th>Nome da Tarefa</th>
+                    <th>Data</th>
+                    <th>Hora</th>
+                    <th>Prioridade</th>
+                    <th>Descrição</th>
+                    <th>Operações</th>
+                </tr>
+            </thead>
 
+            <tbody>
+                @foreach (var item in Model.Tarefas)
+                {
+                    <tr>
+                        <td>@item.Nome</td>
+                        <td>@item.Data.ToString("dd/MM/yyyy")</td>
+                        <td>@item.Hora</td>
+                        <td>@item.Prioridade</td>
+                        <td>@item.Descricao</td>
+                        <td>
+                            <a href="#" class="btn btn-primary btn-sm">
+                                Editar
+                            </a>
+                        </td>
+                        <td>
+                            <a href="#" class="btn btn-danger btn-sm">
+                                Excluir
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+            <tfoot>
+                <tr>
+                    <td colspan="6">
+                        Quantidade de tarefas obtidas: @Model.Tarefas.Count
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    }
+
+</div>

@@ -14,7 +14,6 @@ namespace AgendaWeb.Presentation
                 map => new TarefaRepository(connectionString)
             );
 
-
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
