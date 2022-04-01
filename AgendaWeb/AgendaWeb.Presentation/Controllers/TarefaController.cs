@@ -66,7 +66,7 @@ namespace AgendaWeb.Presentation.Controllers
                 }
                 catch (Exception e)
                 {
-                    TempData["MensagemErro"] = $"Falha ao consultar tarefas: {e.Message}";
+                    TempData["MensagemErro"] = $"Erro ao consultar tarefas: {e.Message}";
                 }
             } 
             else
@@ -96,6 +96,67 @@ namespace AgendaWeb.Presentation.Controllers
                 TempData["MensagemErro"] = $"Falha ao excluir a tarefa. Erro: {e.Message}";
             }
 
+
+            return RedirectToAction("Consulta");
+        }
+
+        // método para abrir a página de edição da tarefa
+        public IActionResult Edicao(Guid id, [FromServices] ITarefaRepository tarefaRepository)
+        {
+            var model = new TarefaEdicaoModel();
+
+            try
+            {
+                // buscar no banco de dados o registro da tarefa através do ID.
+                var tarefa = tarefaRepository.FindById(id);
+                model.Id = tarefa.Id;
+                model.Nome = tarefa.Nome;
+                model.Data = tarefa.Data.ToString("yyyy-MM-dd"); // campo DateTime no banco de dados
+                model.Hora = tarefa.Hora.ToString(@"hh\:mm"); // campo TimeSpan no banco de dados
+                model.Descricao = tarefa.Descricao;
+                model.Prioridade = tarefa.Prioridade.ToString(); // campo int no banco de dados
+
+
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+                        
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Edicao(TarefaEdicaoModel model, [FromServices] ITarefaRepository tarefaRepository)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    //capturar os dados da tarefa
+                    var tarefa = new Tarefa();
+                    tarefa.Id = model.Id;
+                    tarefa.Nome = model.Nome;
+                    tarefa.Data = DateTime.Parse(model.Data);
+                    tarefa.Hora = TimeSpan.Parse(model.Hora);
+                    tarefa.Descricao= model.Descricao;
+                    tarefa.Prioridade = int.Parse(model.Prioridade);
+
+                    tarefaRepository.Update(tarefa);
+
+                    TempData["MensagemSucesso"] = $"A tarefa {tarefa.Nome} foi atualizada com sucesso.";
+                }
+                catch (Exception e)
+                {
+                    TempData["MensagemErro"] = $"Erro ao editar a tarefa {model.Nome}: {e.Message}";
+                }
+            } 
+            else
+            {
+                TempData["MensagemAlerta"] = $"Ocorreram erros de validação na edição dos dados, por favor verifique!";
+            }
+            
 
             return RedirectToAction("Consulta");
         }
