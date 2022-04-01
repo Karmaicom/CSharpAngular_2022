@@ -60,8 +60,21 @@
                     <tr>
                         <td>@item.Nome</td>
                         <td>@item.Data.ToString("dd/MM/yyyy")</td>
-                        <td>@item.Hora</td>
-                        <td>@item.Prioridade</td>
+                        <td>@item.Hora.ToString(@"hh\:mm")</td>
+                        <td>
+                            @switch (item.Prioridade)
+                            {
+                                case 1:
+                                    <span class="badge bg-danger">ALTA</span>
+                                    break;
+                                case 2:
+                                    <span class="badge bg-warning">MÉDIA</span>
+                                    break;
+                                case 3:
+                                    <span class="badge bg-success">BAIXA</span>
+                                    break;
+                            }
+                        </td>
                         <td>@item.Descricao</td>
                         <td>
                             <a href="/Tarefa/Edicao?id=@item.Id" class="btn btn-primary btn-sm">
