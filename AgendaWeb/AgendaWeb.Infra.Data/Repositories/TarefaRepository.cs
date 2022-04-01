@@ -32,7 +32,7 @@ namespace AgendaWeb.Infra.Data.Repositories
 
         public void Delete(Tarefa obj)
         {
-            var query = @"delete from arefa where id = @id";
+            var query = @"delete from tarefa where id = @id";
 
             using (var connection = new SqlConnection(_connectionString))
             {
