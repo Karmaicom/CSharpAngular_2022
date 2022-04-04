@@ -13,7 +13,7 @@ namespace UsuariosWeb.Domain.Interfaces.Repositories
         void Alterar(TEntity entity);
         void Excluir(TEntity entity);
         List<TEntity> Consultar();
-        TEntity ObterPorId(Guid id);
+        TEntity? ObterPorId(Guid id);
 
     }
 }
