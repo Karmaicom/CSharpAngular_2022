@@ -6,8 +6,8 @@ namespace UsuariosWeb.Presentation
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-            builder.Services.AddRazorPages();
+            // Configurando para MVC
+            builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
 
@@ -22,7 +22,12 @@ namespace UsuariosWeb.Presentation
 
             app.UseAuthorization();
 
-            app.MapRazorPages();
+            //app.MapRazorPages();
+
+            app.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Account}/{action=Login}"
+            );
 
             app.Run();
         }
