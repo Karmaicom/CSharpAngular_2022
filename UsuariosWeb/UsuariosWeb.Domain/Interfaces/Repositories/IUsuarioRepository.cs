@@ -10,8 +10,8 @@ namespace UsuariosWeb.Domain.Interfaces.Repositories
     public interface IUsuarioRepository : IBaseRepository<Usuario>
     {
 
-        Usuario Obter(string email);
-        Usuario Obter(string email, string senha);
+        Usuario? Obter(string email);
+        Usuario? Obter(string email, string senha);
 
     }
 }

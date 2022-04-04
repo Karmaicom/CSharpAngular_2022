@@ -22,7 +22,7 @@ namespace UsuariosWeb.Infra.Data.Repositories
 
         public void Inserir(Perfil entity)
         {
-            var query = @"insert into perfil(idperfil, nome) values(@idperfil, @nome)";
+            var query = @"insert into perfil(idperfil, nome) values(@IdPerfil, @Nome)";
 
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -32,7 +32,7 @@ namespace UsuariosWeb.Infra.Data.Repositories
 
         public void Alterar(Perfil entity)
         {
-            var query = @"update perfil set nome = @nome where idperfil = @idperfil";
+            var query = @"update perfil set nome = @Nome where idperfil = @IdPerfil";
 
             using (var connetion = new SqlConnection(_connectionString))
             {
@@ -42,7 +42,7 @@ namespace UsuariosWeb.Infra.Data.Repositories
 
         public void Excluir(Perfil entity)
         {
-            var query = @"delete from perfil where idperfil = @idperfil";
+            var query = @"delete from perfil where idperfil = @IdPerfil";
 
             using (var connection = new SqlConnection(_connectionString))
             {

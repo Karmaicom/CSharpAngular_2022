@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Dapper;
+using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,38 +12,83 @@ namespace UsuariosWeb.Infra.Data.Repositories
 {
     public class UsuarioRepository : IUsuarioRepository
     {
+
+        private string _connectionString;
+
+        public UsuarioRepository(string connectionString)
+        {
+            this._connectionString = connectionString;
+        }
+
         public void Inserir(Usuario entity)
         {
-            throw new NotImplementedException();
+            var query = @"insert into usuario (idusuario, nome, email, senha, datacadastro, idperfil) values 
+                          @IdUsuario, @Nome, @Email, @Senha, @DataCadastro, @IdPerfil";
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Execute(query, entity);
+            }
         }
 
         public void Alterar(Usuario entity)
         {
-            throw new NotImplementedException();
+            var query = @"update usuario set nome = @Nome, email = @Email,
+                          senha = @Senha, idperfil = @IdPerfil";
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Execute(query, entity);
+            }
         }
         public void Excluir(Usuario entity)
         {
-            throw new NotImplementedException();
+            var query = @"delete from usuario where idusuario = @IdUsuario";
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Execute(query, entity);
+            }
         }
 
-        public Usuario ObterPorId(Guid id)
+        public Usuario? ObterPorId(Guid id)
         {
-            throw new NotImplementedException();
+            var query = @"select * from usuario where idusuario = @id";
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                return connection.Query<Usuario>(query, new { id }).FirstOrDefault();
+            }
         }
 
         public List<Usuario> Consultar()
         {
-            throw new NotImplementedException();
+            var query = @"select * from usuario order by nome";
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                return connection.Query<Usuario>(query).ToList();
+            }
         }
 
-        public Usuario Obter(string email)
+        public Usuario? Obter(string email)
         {
-            throw new NotImplementedException();
+            var query = @"select * from usuario where email = @email";
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                return connection.Query(query, new { email }).FirstOrDefault();
+            }
         }
 
-        public Usuario Obter(string email, string senha)
+        public Usuario? Obter(string email, string senha)
         {
-            throw new NotImplementedException();
+            var query = @"select * from usuario where email = @email and senha = @senha";
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                return connection.Query(query, new { email, senha }).FirstOrDefault();
+            }
         }
     }
 }
