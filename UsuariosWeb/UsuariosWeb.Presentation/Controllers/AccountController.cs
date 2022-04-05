@@ -28,5 +28,16 @@ namespace UsuariosWeb.Presentation.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public IActionResult Register(AccountRegisterModel model)
+        {
+            if (ModelState.IsValid)
+            {
+
+            }
+
+            return View();
+        }
     }
 }

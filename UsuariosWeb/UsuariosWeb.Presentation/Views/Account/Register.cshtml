@@ -1,0 +1,104 @@
+﻿
+@{
+    Layout = null;
+}
+
+@model UsuariosWeb.Presentation.Models.AccountRegisterModel
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
+</head>
+
+<body class="bg-secondary">
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-md-4 offset-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="text-center">
+                            <h1>UsuariosWeb!</h1>
+                            <h5>Cadastro de Conta de Usuário</h5>
+                        </div>
+
+                        <hr />
+
+                        @* formulário para captura dos campos *@
+                        @using (Html.BeginForm())
+                        {
+                            <div class="mb-3">
+                                <label>Nome do usuário:</label>
+                                @Html.TextBoxFor(model => model.Nome, new { @class = "form-control" })
+                                <span class="text-danger">
+                                    @Html.ValidationMessageFor(model => model.Nome)
+                                </span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label>Email de acesso:</label>
+                                @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                                <span class="text-danger">
+                                    @Html.ValidationMessageFor(model => model.Email)
+                                </span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label>Senha de acesso:</label>
+                                @Html.PasswordFor(model => model.Senha, new { @class = "form-control" })
+                                <span class="text-danger">
+                                    @Html.ValidationMessageFor(model => model.Senha)
+                                </span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label>Confirme a sua senha:</label>
+                                @Html.PasswordFor(model => model.SenhaConfirmacao, new { @class = "form-control" })
+                                <span class="text-danger">
+                                    @Html.ValidationMessageFor(model => model.SenhaConfirmacao)
+                                </span>
+                            </div>
+
+                            <div class="mb-3">
+                                <div class="d-grid">
+                                    <input type="submit" value="Realizar Cadastro" class="btn btn-success"/>
+                                </div>
+                            </div>
+
+                            <div class="mb-3 text-center">
+                                <div class="d-grid">
+                                    <a href="/Account/Login" class="btn btn-light">
+                                        Já possui conta? <strong> Acesse aqui!</strong>
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                @if(TempData["MensagemSucesso"] != null)
+                                {
+                                    <strong class="text-success">
+                                        @TempData["MensagemSucesso"]
+                                    </strong>
+                                }
+                                else if(TempData["MensagemErro"] != null)
+                                {
+                                    <strong class="text-danger">
+                                        @TempData["MensagemErro"]
+                                    </strong>
+                                }
+                            </div>  
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/bootstrap.min.js"></script>
+
+</body>
+</html>
