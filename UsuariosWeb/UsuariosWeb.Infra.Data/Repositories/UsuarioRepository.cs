@@ -23,7 +23,7 @@ namespace UsuariosWeb.Infra.Data.Repositories
         public void Inserir(Usuario entity)
         {
             var query = @"insert into usuario (idusuario, nome, email, senha, datacadastro, idperfil) values 
-                          @IdUsuario, @Nome, @Email, @Senha, @DataCadastro, @IdPerfil";
+                          @IdUsuario, @Nome, @Email, convert(varchar(32, hashbytes('MD5', @Senha), 2), @DataCadastro, @IdPerfil";
 
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -34,7 +34,7 @@ namespace UsuariosWeb.Infra.Data.Repositories
         public void Alterar(Usuario entity)
         {
             var query = @"update usuario set nome = @Nome, email = @Email,
-                          senha = @Senha, idperfil = @IdPerfil";
+                          idperfil = @IdPerfil";
 
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -83,7 +83,8 @@ namespace UsuariosWeb.Infra.Data.Repositories
 
         public Usuario? Obter(string email, string senha)
         {
-            var query = @"select * from usuario where email = @email and senha = @senha";
+            var query = @"select * from usuario where email = @email 
+                          and senha = convert(varchar(32, hashbytes('MD5', @senha), 2)";
 
             using (var connection = new SqlConnection(_connectionString))
             {
