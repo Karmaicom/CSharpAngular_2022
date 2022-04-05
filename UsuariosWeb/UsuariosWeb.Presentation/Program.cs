@@ -26,7 +26,7 @@ namespace UsuariosWeb.Presentation
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Account}/{action=Login}"
+                pattern: "{controller=Home}/{action=Index}"
             );
 
             app.Run();
