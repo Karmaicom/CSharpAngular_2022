@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+
 namespace UsuariosWeb.Presentation
 {
     public class Program
@@ -8,6 +10,10 @@ namespace UsuariosWeb.Presentation
 
             // Configurando para MVC
             builder.Services.AddControllersWithViews();
+
+            // Autenticação utilizando Cookie
+            builder.Services.Configure<CookiePolicyOptions>(options => { options.MinimumSameSitePolicy = SameSiteMode.None; });
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
 
             var app = builder.Build();
 
@@ -20,13 +26,15 @@ namespace UsuariosWeb.Presentation
 
             app.UseRouting();
 
+            app.UseCookiePolicy();
+            app.UseAuthentication();
             app.UseAuthorization();
 
             //app.MapRazorPages();
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}"
+                pattern: "{controller=Account}/{action=Login}"
             );
 
             app.Run();
