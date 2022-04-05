@@ -69,5 +69,15 @@ namespace UsuariosWeb.Infra.Data.Repositories
                 return connection.Query<Perfil>(query, new { id }).FirstOrDefault();
             }
         }
+
+        public Perfil? Obter(string nome)
+        {
+            var query = @"select * from perfil where nome = @nome";
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                return connection.Query<Perfil>(query, new { nome }).FirstOrDefault();
+            }
+        }
     }
 }

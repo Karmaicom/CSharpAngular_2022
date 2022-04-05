@@ -9,5 +9,8 @@ namespace UsuariosWeb.Domain.Interfaces.Repositories
 {
     public interface IPerfilRepository : IBaseRepository<Perfil>
     {
+
+        Perfil? Obter(string nome);
+
     }
 }
