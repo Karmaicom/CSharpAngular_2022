@@ -36,7 +36,16 @@ namespace UsuariosWeb.Domain.Services
 
         public Usuario AutenticarUsuario(string email, string senha)
         {
-            throw new NotImplementedException();
+            var usuario = _usuarioRepository.Obter(email, senha);
+
+            if (usuario != null)
+            {
+                return usuario;
+            }
+            else
+            {
+                throw new Exception("Acesso negado. Usuário inválido!");
+            }
         }
     }
 }
