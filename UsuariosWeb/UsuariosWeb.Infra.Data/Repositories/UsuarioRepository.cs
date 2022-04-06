@@ -22,8 +22,8 @@ namespace UsuariosWeb.Infra.Data.Repositories
 
         public void Inserir(Usuario entity)
         {
-            var query = @"insert into usuario (idusuario, nome, email, senha, datacadastro, idperfil) values 
-                          @IdUsuario, @Nome, @Email, convert(varchar(32, hashbytes('MD5', @Senha), 2), @DataCadastro, @IdPerfil";
+            var query = @"insert into usuario (idusuario, nome, email, senha, datacadastro, idperfil) values (
+                          @IdUsuario, @Nome, @Email, convert(varchar(32), hashbytes('MD5', @Senha), 2), @DataCadastro, @IdPerfil)";
 
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -77,7 +77,7 @@ namespace UsuariosWeb.Infra.Data.Repositories
 
             using (var connection = new SqlConnection(_connectionString))
             {
-                return connection.Query(query, new { email }).FirstOrDefault();
+                return connection.Query<Usuario>(query, new { email }).FirstOrDefault();
             }
         }
 
@@ -88,7 +88,7 @@ namespace UsuariosWeb.Infra.Data.Repositories
 
             using (var connection = new SqlConnection(_connectionString))
             {
-                return connection.Query(query, new { email, senha }).FirstOrDefault();
+                return connection.Query<Usuario>(query, new { email, senha }).FirstOrDefault();
             }
         }
     }
