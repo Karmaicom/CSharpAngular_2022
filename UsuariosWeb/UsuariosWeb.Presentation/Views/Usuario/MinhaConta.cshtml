@@ -4,5 +4,29 @@
     Layout = "~/Views/Shared/Layout.cshtml";
 }
 
-<h1>MinhaConta</h1>
+@model UsuariosWeb.Presentation.Models.UsuarioMinhaContaModel
+
+<div class="card">
+    <div class="card-body">
+        <h2>Minha Conta de Usuário</h2>
+        <p>Visualização dos dados do usuário autenticado.</p>
+        <hr/>
+
+        <div class="mb-3">
+            Nome do usuário: <strong calss="text-primary">@Model.Nome</strong>
+        </div>
+
+        <div class="mb-3">
+            Email de acesso: <strong calss="text-primary">@Model.Email</strong>
+        </div>
+
+        <div class="mb-3">
+            Perfil de acesso: <strong calss="text-primary">@Model.Perfil</strong>
+        </div>
+
+        <div class="mb-3">
+            Cadastrado no Sistema em: <strong calss="text-primary">@Model.DataCadastro.ToString("dd/MM/yyyy HH:mm")</strong>
+        </div>
+    </div>
+</div>
 
