@@ -47,5 +47,27 @@ namespace UsuariosWeb.Domain.Services
                 throw new Exception("Acesso negado. Usuário inválido!");
             }
         }
+
+        public Usuario ObterUsuario(string email)
+        {
+            var usuario = _usuarioRepository.Obter(email);
+            
+            if (usuario != null)
+            {
+                usuario.Perfil = _perfilRepository.ObterPorId(usuario.IdPerfil);
+
+                return usuario;
+            }
+            else
+            {
+                throw new Exception("Usuário não encontrado.");
+            }
+
+        }
+
+        public List<Usuario> ObterUsuarios()
+        {
+            return _usuarioRepository.Consultar();
+        }
     }
 }

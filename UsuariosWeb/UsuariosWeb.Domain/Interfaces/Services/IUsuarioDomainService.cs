@@ -14,5 +14,9 @@ namespace UsuariosWeb.Domain.Interfaces.Services
 
         Usuario AutenticarUsuario(string email, string senha);
 
+        Usuario ObterUsuario(string email);
+
+        List<Usuario> ObterUsuarios();
+
     }
 }
