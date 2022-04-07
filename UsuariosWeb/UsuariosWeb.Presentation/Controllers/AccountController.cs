@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using UsuariosWeb.Domain.Entities;
 using UsuariosWeb.Domain.Interfaces.Services;
 using UsuariosWeb.Presentation.Models;
@@ -26,6 +29,26 @@ namespace UsuariosWeb.Presentation.Controllers
         {
             if (ModelState.IsValid)
             {
+                try
+                {
+                    var usuario = _usuarioDomainServive.AutenticarUsuario(model.Email, model.Senha);
+
+                    #region Criar a permissão de acesso do usuário
+
+                    var identity = new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, usuario.Email) },
+                        CookieAuthenticationDefaults.AuthenticationScheme);
+                    var principal = new ClaimsPrincipal(identity);
+                    HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
+                    #endregion
+
+                    return RedirectToAction("Index", "Home");
+                }
+                catch (Exception e)
+                {
+
+                    TempData["MensagemErro"] = e.Message;
+                }
 
             }
 
@@ -67,6 +90,19 @@ namespace UsuariosWeb.Presentation.Controllers
             ModelState.Clear();
 
             return View();
+        }
+
+        public IActionResult Logout()
+        {
+
+            #region Remover a permissão de acesso ao usuário
+
+            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            #endregion
+
+            return RedirectToAction("Login", "Account");
+
         }
     }
 }

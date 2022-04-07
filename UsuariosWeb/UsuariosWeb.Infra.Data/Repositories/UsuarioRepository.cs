@@ -84,7 +84,7 @@ namespace UsuariosWeb.Infra.Data.Repositories
         public Usuario? Obter(string email, string senha)
         {
             var query = @"select * from usuario where email = @email 
-                          and senha = convert(varchar(32, hashbytes('MD5', @senha), 2)";
+                          and senha = convert(varchar(32), hashbytes('MD5', @senha), 2)";
 
             using (var connection = new SqlConnection(_connectionString))
             {
