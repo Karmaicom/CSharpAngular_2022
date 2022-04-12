@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using UsuariosWeb.Domain.Entities;
 using UsuariosWeb.Domain.Interfaces.Services;
 using UsuariosWeb.Presentation.Models;
 
@@ -16,8 +17,33 @@ namespace UsuariosWeb.Presentation.Controllers
             _usuarioDomainService = usuarioDomainService;
         }
 
-        public IActionResult Cadastro()
+        public IActionResult Cadastro(UsuarioCadastroModel model)
         {
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var usuario = new Usuario{
+                        IdUsuario = Guid.NewGuid(),
+                        Nome = model.Nome,
+                        Email = model.Email,
+                        Senha = model.Senha,
+                        DataCadastro = DateTime.Now
+                    };
+
+                    _usuarioDomainService.CadastrarUsuario(usuario);
+
+                    ModelState.Clear();
+                    TempData["MensagemSucesso"] = $"Usuário {usuario.Nome} cadastrado com sucesso!";
+
+                }
+                catch (Exception e)
+                {
+                    TempData["MensagemErro"] = e.Message;
+                }
+            }
+
             return View();
         }
 
