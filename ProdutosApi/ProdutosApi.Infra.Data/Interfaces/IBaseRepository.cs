@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProdutosApi.Infra.Data.Interfaces
 {
-    public interface IBaseRepository<TEntity, TKey>
+    public interface IBaseRepository<TEntity>
         where TEntity : class
     {
 
