@@ -1,38 +1,69 @@
-﻿using ProdutosApi.Infra.Data.Entities;
+﻿using Dapper;
+using ProdutosApi.Infra.Data.Entities;
 using ProdutosApi.Infra.Data.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data.SqlClient;
 
 namespace ProdutosApi.Infra.Data.Repositories
 {
     public class ProdutoRepository : IProdutoRepository
     {
-        public void Alterar(Produto obj)
+
+        private readonly string _connectionString;
+
+        public ProdutoRepository(string connectionString)
         {
-            throw new NotImplementedException();
+            _connectionString = connectionString;
+        }
+
+        public void Inserir(Produto entity)
+        {
+            var query = @"INSERT INTO PRODUTO(IDPRODUTO, NOME, PRECO, QUANTIDADE, DATACADASTRO)
+                                VALUES (@IdProduto, @Nome, @Preco, @Quantidade, @DataCadastro)";
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Execute(query, entity);
+            }
+        }
+
+        public void Alterar(Produto entity)
+        {
+            var query = @"UPDATE SET NOME = @Nome, PRECO = @Preco, QUANTIDADE = @Quantidade
+                            WHERE IDPRODUTO = @IdProduto";
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Execute(query, entity);
+            }
+        }
+        public void Excluir(Produto entity)
+        {
+            var query = @"DELETE FROM PRODUTO WHERE IDPRODUTO = @IdProduto";
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Execute(query, entity);
+            }
         }
 
         public List<Produto> Consultar()
         {
-            throw new NotImplementedException();
+            var query = @"SELECT * FROM PRODUTO ORDER BY NOME";
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                return connection.Query<Produto>(query).ToList();
+            }
         }
 
-        public void Excluir(Produto obj)
+        public Produto? ObterPorId(Guid id)
         {
-            throw new NotImplementedException();
-        }
+            var query = @"SELECT * FROM PRODUTO WHERE IDPRODUTO = @IdProduto";
 
-        public void Inserir(Produto obj)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Produto ObterPorId(Guid id)
-        {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                return connection.Query<Produto>(query, new { id }).FirstOrDefault();
+            }
         }
     }
 }
