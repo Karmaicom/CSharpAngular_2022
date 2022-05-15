@@ -10,9 +10,9 @@ namespace ProdutosApi.Infra.Data.Interfaces
         where TEntity : class
     {
 
-        void Inerir(TEntity entity);
+        void Inserir(TEntity entity);
         void Alterar(TEntity entity);
-        void Excluir(TEntity entity);
+        void Delete(TEntity entity);
 
         List<TEntity> Consultar();
         TEntity ObterPOrId(Guid id);

@@ -5,11 +5,16 @@ VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProdutosApi.Services", "ProdutosApi.Services\ProdutosApi.Services.csproj", "{3C7532DB-F578-45DE-926A-78D1B6B10E5F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProdutosApi.Infra.Data", "ProdutosApi.Infra.Data\ProdutosApi.Infra.Data.csproj", "{347AB523-970B-49B5-9B92-66EF2DCCFB6F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProdutosApi.Infra.Data", "ProdutosApi.Infra.Data\ProdutosApi.Infra.Data.csproj", "{347AB523-970B-49B5-9B92-66EF2DCCFB6F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Services Layer", "1 - Services Layer", "{1930470D-01DC-4037-ABAC-08D262E933B4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - InfraStructure Layer", "2 - InfraStructure Layer", "{F0FB4B58-E4B3-4365-9663-190FB4653564}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A4D10E5C-B94A-4507-BCBD-6BEB299AF081}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
