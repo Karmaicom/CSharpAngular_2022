@@ -33,7 +33,7 @@ namespace ProdutosApi.Infra.Data.Repositories
 
         public void Alterar(Produto entity)
         {
-            var query = @"update produto nome = @Nome, preco = @Preco, quantidade = @Quantidade, datacadastro = @DataCadastro
+            var query = @"update produto set nome = @Nome, preco = @Preco, quantidade = @Quantidade, datacadastro = @DataCadastro
                             where idproduto = @IdProduto";
 
             using (var connection = new SqlConnection(_connectionString))
@@ -54,7 +54,7 @@ namespace ProdutosApi.Infra.Data.Repositories
 
         public void Delete(Produto entity)
         {
-            var query = @"update from produto where idproduto = @IdProduto";
+            var query = @"delete from produto where idproduto = @IdProduto";
 
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -62,9 +62,9 @@ namespace ProdutosApi.Infra.Data.Repositories
             }
         }
 
-        public Produto ObterPOrId(Guid id)
+        public Produto ObterPorId(Guid id)
         {
-            var query = @"select * from produto where idproduto = @IdProduto";
+            var query = @"select * from produto where idproduto = @id";
 
             using (var connection = new SqlConnection(_connectionString))
             {

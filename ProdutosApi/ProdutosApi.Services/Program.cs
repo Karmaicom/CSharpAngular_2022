@@ -15,6 +15,7 @@ namespace ProdutosApi {
 
             #region Injeção de Dependência
             var connectionString = builder.Configuration.GetConnectionString("ProdutosApi");
+
             builder.Services.AddTransient<IProdutoRepository>(map => new ProdutoRepository(connectionString));
             #endregion
 

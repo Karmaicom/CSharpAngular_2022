@@ -15,7 +15,7 @@ namespace ProdutosApi.Infra.Data.Interfaces
         void Delete(TEntity entity);
 
         List<TEntity> Consultar();
-        TEntity ObterPOrId(Guid id);
+        TEntity ObterPorId(Guid id);
 
     }
 }
