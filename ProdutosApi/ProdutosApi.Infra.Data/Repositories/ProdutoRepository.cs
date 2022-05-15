@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ProdutosApi.Infra.Data.Repositories
 {
-    internal class ProdutoRepository : IProdutoRepository
+    public class ProdutoRepository : IProdutoRepository
     {
 
         private readonly string _connectionString;
